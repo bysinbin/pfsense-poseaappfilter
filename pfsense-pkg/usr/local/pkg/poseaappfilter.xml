@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE packagegui SYSTEM "../schema/packages.dtd">
+<packagegui>
+    <name>poseaappfilter</name>
+    <version>1.0.0</version>
+    <title>Services: PoseaApp (Katman 7 Uygulama Filtreleme)</title>
+    <include_file>/usr/local/pkg/poseaapp.inc</include_file>
+    <menu>
+        <name>PoseaApp (L7 Filtre)</name>
+        <section>Services</section>
+        <configfile>poseaappfilter.xml</configfile>
+        <url>/poseaapp.php</url>
+    </menu>
+    <tabs>
+        <tab>
+            <text>Uygulama Denetimi</text>
+            <url>/poseaapp.php</url>
+            <active/>
+        </tab>
+    </tabs>
+</packagegui>
