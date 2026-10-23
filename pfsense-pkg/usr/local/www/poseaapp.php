@@ -632,7 +632,9 @@ function onTargetTypeChange() {
         targetWrap.style.display = 'block';
         var inputElem = targetWrap.querySelector('input, select');
         if (inputElem) {
-            syncTargetVal(inputElem.value);
+            if (inputElem.value) {
+                syncTargetVal(inputElem.value);
+            }
             inputElem.focus();
         }
     }
@@ -657,8 +659,24 @@ function toggleManualTargetInput() {
     }
 }
 
+function getActiveTargetVal() {
+    if (isManualMode) {
+        var m = document.getElementById('sel_manual');
+        if (m && m.value.trim()) return m.value.trim();
+    }
+    var type = document.getElementById('rule_target_type').value;
+    var wrap = document.getElementById('wrap_' + type);
+    if (wrap) {
+        var el = wrap.querySelector('input, select');
+        if (el && el.value.trim()) return el.value.trim();
+    }
+    var h = document.getElementById('rule_target_val');
+    return (h && h.value) ? h.value.trim() : '';
+}
+
 function validateRuleForm() {
-    var val = document.getElementById('rule_target_val').value.trim();
+    var val = getActiveTargetVal();
+    document.getElementById('rule_target_val').value = val;
     if (!val) {
         alert('Lütfen kural için bir hedef değer (AD Grubu, Kullanıcı, Alias veya IP) seçiniz veya giriniz.');
         return false;
@@ -705,9 +723,30 @@ function editClientRule(r) {
     document.getElementById('rule_descr').value = r.descr || '';
     document.getElementById('ruleSubmitBtn').innerHTML = '<i class="fa-solid fa-check"></i> Değişiklikleri Güncelle';
     
-    onTargetTypeChange();
+    // Switch active wrap directly without clearing value
+    isManualMode = false;
+    document.getElementById('manualToggleLabel').innerText = 'Elle Yaz';
+    var wraps = document.querySelectorAll('.target-field-wrap');
+    for (var i = 0; i < wraps.length; i++) {
+        wraps[i].style.display = 'none';
+    }
 
     var wrap = document.getElementById('wrap_' + r.target_type);
+    if (wrap) {
+        wrap.style.display = 'block';
+        var input = wrap.querySelector('input, select');
+        if (input) {
+            input.value = r.target_val;
+            if (input.tagName === 'SELECT' && input.value !== r.target_val) {
+                toggleManualTargetInput();
+                document.getElementById('sel_manual').value = r.target_val;
+            }
+        }
+    }
+    document.getElementById('rule_target_val').value = r.target_val;
+
+    $('#newRulePanel').collapse('show');
+}
     if (wrap) {
         var input = wrap.querySelector('input, select');
         if (input) {
