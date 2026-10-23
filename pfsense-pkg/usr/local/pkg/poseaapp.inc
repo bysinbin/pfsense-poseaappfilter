@@ -537,20 +537,38 @@ function poseaapp_sync_system($conf = null) {
 
         $generated_app_rules = [];
 
-        // Check if global VPN category is blocked
-        $global_vpn_blocked = false;
-        $vpn_cat = $catalog['vpn_tunnels'] ?? [];
-        $vpn_block_count = 0;
-        foreach ($vpn_cat['apps'] ?? [] as $va_id => $va_info) {
-            if (($conf['apps'][$va_id]['action'] ?? 'allow') === 'block') {
-                $vpn_block_count++;
+        // Ensure PoseaApp_VPN_Ports port alias exists (exact discrete ports, never a range!)
+        if (!isset($config['aliases']['alias']) || !is_array($config['aliases']['alias'])) {
+            $config['aliases']['alias'] = [];
+        }
+        $vpn_alias_idx = null;
+        foreach ($config['aliases']['alias'] as $idx => $al) {
+            if (($al['name'] ?? '') === 'PoseaApp_VPN_Ports') {
+                $vpn_alias_idx = $idx;
+                break;
             }
         }
-        if ($vpn_block_count >= 3) {
-            $global_vpn_blocked = true;
+        $vpn_alias_obj = [
+            'name' => 'PoseaApp_VPN_Ports',
+            'type' => 'port',
+            'descr' => 'PoseaApp VPN Tunnel Ports (OpenVPN, WireGuard, IPsec, PPTP, WARP)',
+            'address' => '1194 51820 500 4500 1723 2408 41641',
+            'detail' => 'OpenVPN||WireGuard||IPsec IKE||IPsec NAT-T||PPTP||Cloudflare WARP||Tailscale'
+        ];
+        if ($vpn_alias_idx !== null) {
+            $config['aliases']['alias'][$vpn_alias_idx] = $vpn_alias_obj;
+        } else {
+            $config['aliases']['alias'][] = $vpn_alias_obj;
         }
 
+        // Check if global VPN tunnel protocols (OpenVPN & WireGuard) are explicitly blocked
+        $global_vpn_blocked = (
+            (($conf['apps']['openvpn']['action'] ?? 'allow') === 'block') &&
+            (($conf['apps']['wireguard']['action'] ?? 'allow') === 'block')
+        );
+
         // Process granular client rules
+        $rule_seq = 1;
         foreach ($conf['client_rules'] ?? [] as $cr) {
             if (empty($cr['enabled'])) continue;
 
@@ -600,7 +618,7 @@ function poseaapp_sync_system($conf = null) {
                     $rule_type = ($act === 'allow') ? 'pass' : 'block';
                     $generated_app_rules[] = [
                         'id' => '',
-                        'tracker' => (string)time(),
+                        'tracker' => (string)(time() + ($rule_seq++)),
                         'type' => $rule_type,
                         'interface' => 'lan',
                         'ipprotocol' => 'inet',
@@ -609,7 +627,7 @@ function poseaapp_sync_system($conf = null) {
                         'source' => $src_def,
                         'destination' => [
                             'any' => '',
-                            'port' => '1194:51820'
+                            'port' => 'PoseaApp_VPN_Ports'
                         ],
                         'descr' => "PoseaApp Rule: " . ($act === 'allow' ? "İzin Ver (Bypass)" : "Engelle") . " VPN [{$t_val}]",
                         'created' => ['time' => (string)time(), 'username' => 'admin (PoseaApp)']
@@ -622,7 +640,7 @@ function poseaapp_sync_system($conf = null) {
         if ($global_vpn_blocked) {
             $generated_app_rules[] = [
                 'id' => '',
-                'tracker' => (string)(time() + 2),
+                'tracker' => (string)(time() + ($rule_seq++)),
                 'type' => 'block',
                 'interface' => 'lan',
                 'ipprotocol' => 'inet',
@@ -631,7 +649,7 @@ function poseaapp_sync_system($conf = null) {
                 'source' => ['any' => ''],
                 'destination' => [
                     'any' => '',
-                    'port' => '1194:51820'
+                    'port' => 'PoseaApp_VPN_Ports'
                 ],
                 'descr' => "PoseaApp Rule: Global Block VPN Tunnels (OpenVPN/WireGuard/WARP)",
                 'created' => ['time' => (string)time(), 'username' => 'admin (PoseaApp)']
