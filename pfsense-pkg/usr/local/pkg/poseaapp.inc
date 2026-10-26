@@ -13,270 +13,1045 @@ define('POSEAAPP_BLOCKED_FILE', '/var/etc/poseafilter/app_blocked_domains.txt');
 
 function poseaapp_get_catalog() {
     return [
+        'ai_tools' => [
+            'title' => 'Yapay Zekâ (AI) & LLM Asistanları',
+            'icon' => 'fa-solid fa-robot',
+            'color' => '#8b5cf6',
+            'apps' => [
+                'chatgpt' => [
+                    'name' => 'ChatGPT (OpenAI)',
+                    'domains' => ['openai.com', 'chatgpt.com', 'chat.openai.com', 'oaistatic.com', 'oaiusercontent.com', 'cdn.oaistatic.com', 'api.openai.com'],
+                    'ports' => '443',
+                    'descr' => 'OpenAI ChatGPT web arayüzü ve API servisleri',
+                ],
+                'claude' => [
+                    'name' => 'Claude (Anthropic)',
+                    'domains' => ['claude.ai', 'anthropic.com', 'cdn.anthropic.com', 'api.anthropic.com'],
+                    'ports' => '443',
+                    'descr' => 'Anthropic Claude yapay zeka asistanı',
+                ],
+                'copilot' => [
+                    'name' => 'Microsoft Copilot',
+                    'domains' => ['copilot.microsoft.com', 'sydney.bing.com', 'copilot.cloud.microsoft'],
+                    'ports' => '443',
+                    'descr' => 'Microsoft Copilot ve Bing AI asistanı',
+                ],
+                'deepseek' => [
+                    'name' => 'DeepSeek AI',
+                    'domains' => ['deepseek.com', 'chat.deepseek.com', 'api.deepseek.com', 'cdn.deepseek.com'],
+                    'ports' => '443',
+                    'descr' => 'DeepSeek sohbet ve API platformu',
+                ],
+                'gemini' => [
+                    'name' => 'Google Gemini',
+                    'domains' => ['gemini.google.com', 'bard.google.com', 'generativelanguage.googleapis.com'],
+                    'ports' => '443',
+                    'descr' => 'Google Gemini ve Bard yapay zeka servisi',
+                ],
+                'grok' => [
+                    'name' => 'Grok (xAI)',
+                    'domains' => ['grok.com', 'x.ai', 'api.x.ai'],
+                    'ports' => '443',
+                    'descr' => 'Elon Musk xAI Grok yapay zeka sistemi',
+                ],
+                'manus' => [
+                    'name' => 'Manus AI',
+                    'domains' => ['manus.im', 'manus.ai'],
+                    'ports' => '443',
+                    'descr' => 'Manus AI otonom ajan ve çalışma alanı',
+                ],
+                'meta_ai' => [
+                    'name' => 'Meta AI (Llama)',
+                    'domains' => ['meta.ai', 'imagine.meta.com'],
+                    'ports' => '443',
+                    'descr' => 'Meta AI ve Imagine görsel üretim platformu',
+                ],
+                'perplexity' => [
+                    'name' => 'Perplexity AI',
+                    'domains' => ['perplexity.ai', 'pplx.ai', 'api.perplexity.ai'],
+                    'ports' => '443',
+                    'descr' => 'Perplexity yapay zeka arama motoru',
+                ],
+            ],
+        ],
         'vpn_tunnels' => [
-            'title' => 'VPN, Anonimleşme & Tünelleme (Bypass)',
+            'title' => 'VPN, Tünelleme & Anonimleşme (Bypass)',
             'icon' => 'fa-solid fa-shield-halved',
+            'color' => '#ef4444',
             'apps' => [
                 'nordvpn' => [
                     'name' => 'NordVPN',
-                    'domains' => ['nordvpn.com', 'nordcdn.com', 'nordaccount.com', 'nordsec.com', 'api.nordvpn.com'],
+                    'domains' => ['nordvpn.com', 'nordcdn.com', 'nordaccount.com'],
                     'ports' => '1194,443',
-                    'descr' => 'NordVPN tünelleme ve sunucu ağı'
+                    'descr' => 'NordVPN tünelleme ve sunucu ağı',
                 ],
                 'expressvpn' => [
                     'name' => 'ExpressVPN',
                     'domains' => ['expressvpn.com', 'expvpn.com', 'expressvpn.net', 'xv-services.net'],
                     'ports' => '1194,443',
-                    'descr' => 'ExpressVPN ticari tünel ağı'
+                    'descr' => 'ExpressVPN ticari tünel ağı',
                 ],
                 'protonvpn' => [
                     'name' => 'ProtonVPN',
                     'domains' => ['protonvpn.com', 'proton.me', 'protonstatus.com', 'protonvpn.net', 'api.protonvpn.ch'],
                     'ports' => '1194,51820',
-                    'descr' => 'Proton İsviçre şifreli VPN ağı'
+                    'descr' => 'Proton İsviçre şifreli VPN ağı',
                 ],
                 'surfshark' => [
                     'name' => 'Surfshark',
                     'domains' => ['surfshark.com', 'surfsharkdns.com', 'shark-services.com'],
                     'ports' => '1194,51820',
-                    'descr' => 'Surfshark VPN ve sınırsız cihaz ağı'
+                    'descr' => 'Surfshark VPN ve sınırsız cihaz ağı',
                 ],
                 'openvpn' => [
                     'name' => 'OpenVPN Tünelleri',
                     'domains' => ['openvpn.net', 'openvpn.com', 'my.openvpn.com'],
                     'ports' => '1194,943',
-                    'descr' => 'Standart OpenVPN UDP/TCP protokol trafiği'
+                    'descr' => 'Standart OpenVPN UDP/TCP protokol trafiği',
                 ],
                 'wireguard' => [
                     'name' => 'WireGuard Tünelleri',
                     'domains' => ['wireguard.com'],
                     'ports' => '51820',
-                    'descr' => 'Modern WireGuard UDP şifreli tünelleme'
+                    'descr' => 'Modern WireGuard UDP şifreli tünelleme',
                 ],
                 'tor' => [
-                    'name' => 'Tor Project (Karanlık Ağ & Köprüler)',
+                    'name' => 'Tor Project & Köprüler',
                     'domains' => ['torproject.org', 'onion', 'tor2web.org', 'tor2web.io', 'bridges.torproject.org'],
-                    'ports' => '9001,9050,9051',
-                    'descr' => 'Tor anonimleştirme ağı ve köprüleri'
+                    'ports' => '9001,9050,9150',
+                    'descr' => 'Tor anonim yönlendirme ve onion ağı',
                 ],
                 'warp' => [
-                    'name' => 'Cloudflare 1.1.1.1 (WARP)',
-                    'domains' => ['cloudflareclient.com', 'warp.plus', 'cloudflare-dns.com'],
-                    'ports' => '2408',
-                    'descr' => 'Cloudflare mobil ve masaüstü VPN tünelleme'
+                    'name' => 'Cloudflare WARP (1.1.1.1)',
+                    'domains' => ['cloudflareclient.com', 'warp.plus', '1.1.1.1', 'cloudflare-gateway.com', 'cloudflare.com'],
+                    'ports' => '2408,500,4500,1701',
+                    'descr' => 'Cloudflare 1.1.1.1 WARP tüneli',
                 ],
                 'psiphon' => [
                     'name' => 'Psiphon & UltraSurf',
-                    'domains' => ['psiphon.ca', 'psiphon3.com', 'ultrasurf.us', 'ultrasurfing.com'],
-                    'ports' => '',
-                    'descr' => 'Güvenlik duvarı ve sansür atlatma proxy yazılımları'
+                    'domains' => ['psiphon.ca', 'psiphon3.com', 'psiphon.me', 'ultrasurf.us'],
+                    'ports' => '443,80,1080',
+                    'descr' => 'Sansür ve filtre atlatma proxy yazılımları',
                 ],
                 'tailscale' => [
                     'name' => 'Tailscale Mesh VPN',
-                    'domains' => ['tailscale.com', 'tailscale.io', 'controlplane.tailscale.com'],
-                    'ports' => '41641',
-                    'descr' => 'Zero-trust ağ ve peer-to-peer mesh tünelleme'
+                    'domains' => ['tailscale.com', 'login.tailscale.com', 'derp.tailscale.com'],
+                    'ports' => '41641,3478',
+                    'descr' => 'Tailscale P2P WireGuard mesh ağı',
                 ],
                 'windscribe' => [
-                    'name' => 'Windscribe',
+                    'name' => 'Windscribe VPN',
                     'domains' => ['windscribe.com', 'assets.windscribe.com'],
-                    'ports' => '1194,443',
-                    'descr' => 'Popüler ücretsiz/ücretli VPN istemcisi'
+                    'ports' => '1194,443,54783',
+                    'descr' => 'Windscribe güvenlik ve gizlilik tüneli',
                 ],
                 'hotspotshield' => [
                     'name' => 'Hotspot Shield',
-                    'domains' => ['hotspotshield.com', 'hsselite.com', 'anchorfree.com'],
-                    'ports' => '',
-                    'descr' => 'Hydra protokolü kullanan VPN istemcisi'
+                    'domains' => ['hotspotshield.com', 'anchorfree.com', 'hsselite.com'],
+                    'ports' => '443,1194',
+                    'descr' => 'Hotspot Shield Hydra protokolü ve tünelleri',
                 ],
                 'turbovpn' => [
                     'name' => 'TurboVPN',
-                    'domains' => ['turbovpn.com', 'turbospeed.io'],
-                    'ports' => '',
-                    'descr' => 'Mobil cihazlarda yaygın ücretsiz VPN'
+                    'domains' => ['turbovpn.com', 'inconnecting.com'],
+                    'ports' => '443,1194',
+                    'descr' => 'TurboVPN mobil ve masaüstü proxy tüneli',
                 ],
                 'cyberghost' => [
-                    'name' => 'CyberGhost',
-                    'domains' => ['cyberghostvpn.com', 'cg-dialup.net'],
-                    'ports' => '1194',
-                    'descr' => 'CyberGhost VPN sunucu ve tünel ağı'
-                ]
-            ]
+                    'name' => 'CyberGhost VPN',
+                    'domains' => ['cyberghostvpn.com', 'cg-services.net'],
+                    'ports' => '1194,443',
+                    'descr' => 'CyberGhost şifreli bağlantı ağı',
+                ],
+                'icloud_private_relay' => [
+                    'name' => 'Apple iCloud Private Relay',
+                    'domains' => ['mask.icloud.com', 'mask-h2.icloud.com', 'mask-api.fe.apple-dns.net'],
+                    'ports' => '443',
+                    'descr' => 'Apple Safari gizli röle ve şifreleme servisi',
+                ],
+                'privacy' => [
+                    'name' => 'Privacy.com',
+                    'domains' => ['privacy.com', 'api.privacy.com'],
+                    'ports' => '443',
+                    'descr' => 'Anonim sanal kart ve ödeme gizleme platformu',
+                ],
+                'proton' => [
+                    'name' => 'Proton (Mail, VPN, Drive)',
+                    'domains' => ['proton.me', 'protonmail.com', 'protonvpn.com', 'protonstatus.com', 'proton.ch'],
+                    'ports' => '443,1194,51820',
+                    'descr' => 'Proton şifreli iletişim ve depolama ekosistemi',
+                ],
+            ],
         ],
-        'remote_access' => [
-            'title' => 'Uzak Masaüstü & Shadow IT (Remote Control)',
-            'icon' => 'fa-solid fa-display',
+        'dating' => [
+            'title' => 'Arkadaşlık & Tanışma (Dating)',
+            'icon' => 'fa-solid fa-heart',
+            'color' => '#ec4899',
             'apps' => [
-                'anydesk' => [
-                    'name' => 'AnyDesk',
-                    'domains' => ['anydesk.com', 'net.anydesk.com', 'boot.net.anydesk.com'],
-                    'ports' => '7070',
-                    'descr' => 'AnyDesk uzaktan kontrol ve dosya transferi'
+                'tinder' => [
+                    'name' => 'Tinder',
+                    'domains' => ['tinder.com', 'gotinder.com', 'tindersparks.com', 'tinder.app.link'],
+                    'ports' => '443',
+                    'descr' => 'Tinder tanışma ve arkadaşlık platformu',
                 ],
-                'teamviewer' => [
-                    'name' => 'TeamViewer',
-                    'domains' => ['teamviewer.com', 'teamviewer.net', 'dyngate.com'],
-                    'ports' => '5938',
-                    'descr' => 'TeamViewer uzaktan yönetim ve masaüstü paylaşımı'
+                'plenty_of_fish' => [
+                    'name' => 'Plenty of Fish (POF)',
+                    'domains' => ['pof.com', 'plentyoffish.com'],
+                    'ports' => '443',
+                    'descr' => 'Plenty of Fish uluslararası tanışma servisi',
                 ],
-                'rustdesk' => [
-                    'name' => 'RustDesk',
-                    'domains' => ['rustdesk.com'],
-                    'ports' => '21115,21116,21117,21118,21119',
-                    'descr' => 'Açık kaynak kendi kendine barındırılan uzaktan masaüstü'
+                'wizz' => [
+                    'name' => 'Wizz App',
+                    'domains' => ['wizzapp.com', 'wizz.gg'],
+                    'ports' => '443',
+                    'descr' => 'Wizz genç tanışma ve sosyal sohbet uygulaması',
                 ],
-                'chromeremotedesktop' => [
-                    'name' => 'Chrome Remote Desktop',
-                    'domains' => ['remotedesktop.google.com', 'chromeremotedesktop.google.com'],
-                    'ports' => '',
-                    'descr' => 'Google Chrome tarayıcı tabanlı uzaktan erişim'
-                ]
-            ]
+            ],
         ],
-        'streaming' => [
-            'title' => 'Video & Müzik (Streaming)',
-            'icon' => 'fa-solid fa-play',
+        'gambling' => [
+            'title' => 'Bahis, Kumar & Şans Oyunları',
+            'icon' => 'fa-solid fa-dice',
+            'color' => '#f59e0b',
             'apps' => [
-                'youtube' => [
-                    'name' => 'YouTube',
-                    'domains' => ['youtube.com', 'youtu.be', 'googlevideo.com', 'ytimg.com'],
-                    'ports' => '',
-                    'descr' => 'Google video akış platformu'
+                'betano' => [
+                    'name' => 'Betano',
+                    'domains' => ['betano.com', 'betano.de', 'betano.pt', 'betano.bet.br', 'betano.cz', 'betano.ro'],
+                    'ports' => '443',
+                    'descr' => 'Betano çevrimiçi spor bahisleri ve casino',
                 ],
-                'netflix' => [
-                    'name' => 'Netflix',
-                    'domains' => ['netflix.com', 'nflxvideo.net', 'nflximg.net', 'nflxext.com'],
-                    'ports' => '',
-                    'descr' => 'Film ve dizi akış servisi'
+                'betfair' => [
+                    'name' => 'Betfair',
+                    'domains' => ['betfair.com', 'betfair.es', 'betfair.it', 'betfairimages.com'],
+                    'ports' => '443',
+                    'descr' => 'Betfair bahis borsası ve kumar platformu',
                 ],
-                'tiktok' => [
-                    'name' => 'TikTok',
-                    'domains' => ['tiktok.com', 'tiktokv.com', 'byteoversea.com', 'ibytedtos.com', 'musically.com', 'musical.ly'],
-                    'ports' => '',
-                    'descr' => 'ByteDance kısa video platformu'
+                'betway' => [
+                    'name' => 'Betway',
+                    'domains' => ['betway.com', 'betway.co.za', 'betway.de', 'betway.es', 'betway.it'],
+                    'ports' => '443',
+                    'descr' => 'Betway küresel bahis ve casino servisi',
                 ],
-                'twitch' => [
-                    'name' => 'Twitch',
-                    'domains' => ['twitch.tv', 'ttvnw.net', 'jtvnw.net'],
-                    'ports' => '',
-                    'descr' => 'Canlı yayın ve oyun akış servisi'
+                'blaze' => [
+                    'name' => 'Blaze Casino',
+                    'domains' => ['blaze.com', 'blaze-1.com', 'blaze-2.com', 'blaze.trade'],
+                    'ports' => '443',
+                    'descr' => 'Blaze Crash ve çevrimiçi kumarhane',
                 ],
-                'spotify' => [
-                    'name' => 'Spotify',
-                    'domains' => ['spotify.com', 'scdn.co', 'spoti.fi'],
-                    'ports' => '',
-                    'descr' => 'Müzik ve podcast akış servisi'
-                ]
-            ]
+            ],
         ],
         'gaming' => [
             'title' => 'Çevrimiçi Oyunlar & Platformlar',
             'icon' => 'fa-solid fa-gamepad',
+            'color' => '#6366f1',
             'apps' => [
-                'roblox' => [
-                    'name' => 'Roblox',
-                    'domains' => ['roblox.com', 'rbxcdn.com'],
-                    'ports' => '',
-                    'descr' => 'Çok oyunculu oyun ve sanal evren'
-                ],
                 'steam' => [
-                    'name' => 'Steam',
-                    'domains' => ['steampowered.com', 'steamcommunity.com', 'steamstatic.com'],
-                    'ports' => '',
-                    'descr' => 'Valve oyun mağazası ve ağı'
+                    'name' => 'Steam (Valve)',
+                    'domains' => ['steampowered.com', 'steamcommunity.com', 'steamstatic.com', 'steamserver.net'],
+                    'ports' => '27015:27030,443',
+                    'descr' => 'Valve Steam mağaza, topluluk ve oyun indirme sunucuları',
                 ],
                 'epicgames' => [
                     'name' => 'Epic Games (Fortnite)',
-                    'domains' => ['epicgames.com', 'unrealengine.com'],
-                    'ports' => '',
-                    'descr' => 'Epic Games başlatıcısı ve mağazası'
+                    'domains' => ['epicgames.com', 'unrealengine.com', 'fortnite.com', 'ol.epicgames.com'],
+                    'ports' => '443,5222',
+                    'descr' => 'Epic Games Launcher ve Fortnite sunucuları',
                 ],
                 'riotgames' => [
-                    'name' => 'Riot Games (Valorant / LoL)',
-                    'domains' => ['riotgames.com', 'leagueoflegends.com', 'playvalorant.com'],
-                    'ports' => '',
-                    'descr' => 'Riot Games oyun sunucuları'
+                    'name' => 'Riot Games',
+                    'domains' => ['riotgames.com', 'riotcdn.net', 'rgpub.io'],
+                    'ports' => '443',
+                    'descr' => 'Riot Games istemcisi ve doğrulama ağları',
                 ],
-                'discord' => [
-                    'name' => 'Discord',
-                    'domains' => ['discord.com', 'discord.gg', 'discordapp.com', 'discordapp.net'],
-                    'ports' => '',
-                    'descr' => 'Sesli ve yazılı oyuncu topluluk ağı'
-                ]
-            ]
+                'leagueoflegends' => [
+                    'name' => 'League of Legends (LoL)',
+                    'domains' => ['leagueoflegends.com', 'pvp.net'],
+                    'ports' => '2099,5223,5000:5500',
+                    'descr' => 'Riot League of Legends oyun ve eşleştirme sunucuları',
+                ],
+                'valorant' => [
+                    'name' => 'Valorant',
+                    'domains' => ['playvalorant.com', 'valorant.secure.dyn.riotcdn.net'],
+                    'ports' => '7000:8000',
+                    'descr' => 'Valorant taktiksel FPS oyunu ve ses sunucuları',
+                ],
+                'battle_net' => [
+                    'name' => 'Battle.net / Blizzard',
+                    'domains' => ['battle.net', 'blizzard.com', 'battlenet.com'],
+                    'ports' => '1119,3724',
+                    'descr' => 'Blizzard Entertainment Battle.net istemcisi',
+                ],
+                'activision_blizzard' => [
+                    'name' => 'Activision (Call of Duty)',
+                    'domains' => ['activision.com', 'callofduty.com', 'demonware.net'],
+                    'ports' => '3074,443',
+                    'descr' => 'Activision Call of Duty ve Demonware oyun sunucuları',
+                ],
+                'electronic_arts' => [
+                    'name' => 'Electronic Arts (EA / EA Sports)',
+                    'domains' => ['ea.com', 'eadev.ea.com', 'eaassets-a.akamaihd.net'],
+                    'ports' => '443',
+                    'descr' => 'EA App ve EA Sports çevrimiçi hizmetleri',
+                ],
+                'origin' => [
+                    'name' => 'EA Origin',
+                    'domains' => ['origin.com', 'dm.origin.com'],
+                    'ports' => '443',
+                    'descr' => 'Eski EA Origin mağazası ve indirme platformu',
+                ],
+                'ubisoft' => [
+                    'name' => 'Ubisoft Connect (Uplay)',
+                    'domains' => ['ubisoft.com', 'uplay.com', 'ubisoftconnect.com'],
+                    'ports' => '443,14000',
+                    'descr' => 'Ubisoft Connect ve oyun sunucu ağı',
+                ],
+                'roblox' => [
+                    'name' => 'Roblox',
+                    'domains' => ['roblox.com', 'rbxcdn.com', 'roblox.com.edgesuite.net'],
+                    'ports' => '443,49152:65535',
+                    'descr' => 'Roblox çok oyunculu oyun platformu',
+                ],
+                'minecraft' => [
+                    'name' => 'Minecraft (Mojang)',
+                    'domains' => ['minecraft.net', 'mojang.com', 'minecraftservices.com'],
+                    'ports' => '25565,443',
+                    'descr' => 'Minecraft sunucu ve hesap doğrulama servisleri',
+                ],
+                'rockstar_games' => [
+                    'name' => 'Rockstar Games (GTA V)',
+                    'domains' => ['rockstargames.com', 'socialclub.rockstargames.com'],
+                    'ports' => '6672,61455:61458',
+                    'descr' => 'Rockstar Games Social Club ve GTA Online',
+                ],
+                'gog' => [
+                    'name' => 'GOG.com (Galaxy)',
+                    'domains' => ['gog.com', 'gog-statics.com'],
+                    'ports' => '443',
+                    'descr' => 'CD Projekt GOG Galaxy oyun platformu',
+                ],
+                'io_interactive' => [
+                    'name' => 'IO Interactive (Hitman)',
+                    'domains' => ['ioi.dk', 'hitman.com'],
+                    'ports' => '443',
+                    'descr' => 'IO Interactive Hitman çevrimiçi sunucuları',
+                ],
+                'nintendo' => [
+                    'name' => 'Nintendo Network / Switch',
+                    'domains' => ['nintendo.com', 'nintendo.net', 'nintendo.co.jp', 'nintendowifi.net'],
+                    'ports' => '443',
+                    'descr' => 'Nintendo Switch eShop ve çevrimiçi oyun servisi',
+                ],
+                'playstation' => [
+                    'name' => 'PlayStation Network (PSN)',
+                    'domains' => ['playstation.com', 'sonyentertainmentnetwork.com', 'playstation.net', 'playstationnetwork.com'],
+                    'ports' => '3478:3480,443',
+                    'descr' => 'Sony PS4 / PS5 PlayStation Network ekosistemi',
+                ],
+                'xbox_live' => [
+                    'name' => 'Xbox Live (Microsoft)',
+                    'domains' => ['xbox.com', 'xboxlive.com', 'xboxab.com'],
+                    'ports' => '3074,88,500',
+                    'descr' => 'Microsoft Xbox konsol ve PC Game Pass ağı',
+                ],
+                'wargaming' => [
+                    'name' => 'Wargaming (World of Tanks)',
+                    'domains' => ['wargaming.net', 'worldoftanks.eu', 'worldoftanks.com', 'worldofwarships.eu'],
+                    'ports' => '443,20014:20020',
+                    'descr' => 'World of Tanks ve World of Warships sunucuları',
+                ],
+                'warner_bros_games' => [
+                    'name' => 'Warner Bros Games',
+                    'domains' => ['wbgames.com', 'warnerbrosgames.com', 'warnerbros.com'],
+                    'ports' => '443',
+                    'descr' => 'Warner Bros oyunları ve çevrimiçi servisleri',
+                ],
+            ],
         ],
-        'p2p_bypass' => [
-            'title' => 'P2P & Dosya Paylaşımı (Torrent)',
-            'icon' => 'fa-solid fa-download',
+        'cloud_storage' => [
+            'title' => 'Bulut Depolama, Dosya & Fotoğraf Paylaşımı',
+            'icon' => 'fa-solid fa-cloud',
+            'color' => '#0ea5e9',
             'apps' => [
+                'box' => [
+                    'name' => 'Box.com',
+                    'domains' => ['box.com', 'boxcdn.net', 'box.net'],
+                    'ports' => '443',
+                    'descr' => 'Kurumsal bulut depolama ve dosya paylaşım platformu',
+                ],
+                'dropbox' => [
+                    'name' => 'Dropbox',
+                    'domains' => ['dropbox.com', 'dropboxapi.com', 'dropboxstatic.com', 'dropboxusercontent.com'],
+                    'ports' => '443',
+                    'descr' => 'Dropbox dosya senkronizasyon ve depolama ağı',
+                ],
+                'flickr' => [
+                    'name' => 'Flickr',
+                    'domains' => ['flickr.com', 'staticflickr.com', 'flic.kr'],
+                    'ports' => '443',
+                    'descr' => 'Fotoğraf ve video barındırma topluluğu',
+                ],
+                'imgur' => [
+                    'name' => 'Imgur',
+                    'domains' => ['imgur.com', 'i.imgur.com', 'imgurinc.com'],
+                    'ports' => '443',
+                    'descr' => 'Görsel yükleme ve paylaşım servisi',
+                ],
                 'bittorrent' => [
-                    'name' => 'BitTorrent / uTorrent / P2P',
-                    'domains' => ['bittorrent.com', 'utorrent.com', 'torrent.com', 'thepiratebay.org', '1337x.to'],
-                    'ports' => '6881,6882,6883,6884,6885,6886,6887,6888,6889',
-                    'descr' => 'P2P dosya paylaşım protokolleri ve trackerlar'
-                ]
-            ]
-        ],
-        'social' => [
-            'title' => 'Sosyal Medya Ağları',
-            'icon' => 'fa-solid fa-share-nodes',
-            'apps' => [
-                'instagram' => [
-                    'name' => 'Instagram',
-                    'domains' => ['instagram.com', 'cdninstagram.com'],
-                    'ports' => '',
-                    'descr' => 'Fotoğraf ve video paylaşım ağı'
+                    'name' => 'BitTorrent (P2P Torrent)',
+                    'domains' => ['torrent', 'utorrent.com', 'bittorrent.com', 'thepiratebay.org', '1337x.to', 'yts.mx', 'rarbg.to'],
+                    'ports' => '6881:6889',
+                    'descr' => 'P2P dosya paylaşım protokolü ve istemcileri',
                 ],
-                'facebook' => [
-                    'name' => 'Facebook',
-                    'domains' => ['facebook.com', 'fbcdn.net', 'facebook.net'],
-                    'ports' => '',
-                    'descr' => 'Meta sosyal paylaşım ağı'
-                ],
-                'twitter_x' => [
-                    'name' => 'X (Twitter)',
-                    'domains' => ['x.com', 'twitter.com', 'twimg.com', 't.co'],
-                    'ports' => '',
-                    'descr' => 'Mikroblog ve haber platformu'
-                ]
-            ]
+            ],
         ],
         'messaging' => [
-            'title' => 'Anlık Mesajlaşma & Arama',
+            'title' => 'Anlık Mesajlaşma, Arama & İşbirliği',
             'icon' => 'fa-solid fa-comments',
+            'color' => '#10b981',
             'apps' => [
                 'whatsapp' => [
-                    'name' => 'WhatsApp Web & Masaüstü',
-                    'domains' => ['whatsapp.com', 'whatsapp.net'],
-                    'ports' => '',
-                    'descr' => 'Meta anlık mesajlaşma ve dosya transferi'
+                    'name' => 'WhatsApp',
+                    'domains' => ['whatsapp.com', 'whatsapp.net', 'web.whatsapp.com', 'wa.me'],
+                    'ports' => '443,5222',
+                    'descr' => 'Meta WhatsApp Web ve mobil anlık mesajlaşma',
                 ],
                 'telegram' => [
                     'name' => 'Telegram',
-                    'domains' => ['telegram.org', 't.me', 'telegram.me'],
-                    'ports' => '',
-                    'descr' => 'Şifreli mesajlaşma ve kanal ağı'
-                ]
-            ]
+                    'domains' => ['telegram.org', 't.me', 'telegram.me', 'tdesktop.com'],
+                    'ports' => '443,80',
+                    'descr' => 'Telegram şifreli mesajlaşma ve dosya transferi',
+                ],
+                'signal' => [
+                    'name' => 'Signal Messenger',
+                    'domains' => ['signal.org', 'whispersystems.org', 'updates2.signal.org'],
+                    'ports' => '443',
+                    'descr' => 'Signal uçtan uca şifreli mesajlaşma',
+                ],
+                'microsoft_teams' => [
+                    'name' => 'Microsoft Teams',
+                    'domains' => ['teams.microsoft.com', 'teams.live.com', 'teams.cdn.live.net'],
+                    'ports' => '443',
+                    'descr' => 'Microsoft Teams kurumsal görüntülü toplantı ve sohbet',
+                ],
+                'slack' => [
+                    'name' => 'Slack',
+                    'domains' => ['slack.com', 'slack-edge.com', 'slack-msgs.com', 'slackb.com'],
+                    'ports' => '443',
+                    'descr' => 'Slack işyeri mesajlaşma ve kanal platformu',
+                ],
+                'skype' => [
+                    'name' => 'Skype',
+                    'domains' => ['skype.com', 'skypeassets.com', 'pipe.skype.com'],
+                    'ports' => '443',
+                    'descr' => 'Microsoft Skype sesli ve görüntülü arama',
+                ],
+                'discord' => [
+                    'name' => 'Discord',
+                    'domains' => ['discord.com', 'discordapp.com', 'discord.gg', 'discordapp.net', 'discord.media'],
+                    'ports' => '443,50000:65535',
+                    'descr' => 'Discord sesli iletişim, yayın ve topluluk kanalları',
+                ],
+                'viber' => [
+                    'name' => 'Viber',
+                    'domains' => ['viber.com', 'viber.me', 'viber-cdn.biz'],
+                    'ports' => '443,5242',
+                    'descr' => 'Rakuten Viber anlık mesajlaşma ve VoIP',
+                ],
+                'wechat' => [
+                    'name' => 'WeChat',
+                    'domains' => ['wechat.com', 'weixin.qq.com', 'qpic.cn', 'servicewechat.com'],
+                    'ports' => '443,80',
+                    'descr' => 'Tencent WeChat anlık sohbet ve ödeme servisi',
+                ],
+                'kakaotalk' => [
+                    'name' => 'KakaoTalk',
+                    'domains' => ['kakaotalk.com', 'kakao.com', 'kakaocdn.net'],
+                    'ports' => '443,5223',
+                    'descr' => 'KakaoTalk mesajlaşma uygulaması',
+                ],
+                'kik' => [
+                    'name' => 'Kik Messenger',
+                    'domains' => ['kik.com', 'kik.me'],
+                    'ports' => '443,5222',
+                    'descr' => 'Kik anonim mobil mesajlaşma',
+                ],
+                'olvid' => [
+                    'name' => 'Olvid Messenger',
+                    'domains' => ['olvid.io'],
+                    'ports' => '443',
+                    'descr' => 'Olvid ultra-güvenli Fransız mesajlaşma uygulaması',
+                ],
+                'line' => [
+                    'name' => 'LINE Messenger',
+                    'domains' => ['line.me', 'line-apps.com', 'line-scdn.net', 'naver.jp'],
+                    'ports' => '443',
+                    'descr' => 'LINE Asya anlık mesajlaşma ve arama servisi',
+                ],
+                'kook' => [
+                    'name' => 'KOOK (Kaiheila)',
+                    'domains' => ['kookapp.cn', 'kaiheila.cn'],
+                    'ports' => '443',
+                    'descr' => 'KOOK oyuncu sesli sohbet ve topluluk ağı',
+                ],
+            ],
+        ],
+        'ecommerce' => [
+            'title' => 'E-Ticaret & Alışveriş',
+            'icon' => 'fa-solid fa-cart-shopping',
+            'color' => '#f97316',
+            'apps' => [
+                'amazon' => [
+                    'name' => 'Amazon',
+                    'domains' => ['amazon.com', 'amazon.com.tr', 'amazon.de', 'ssl-images-amazon.com', 'media-amazon.com', 'a.co'],
+                    'ports' => '443',
+                    'descr' => 'Amazon küresel e-ticaret ve alışveriş sitesi',
+                ],
+                'aliexpress' => [
+                    'name' => 'AliExpress',
+                    'domains' => ['aliexpress.com', 'aliexpress.ru', 'alicdn.com', 'alipay.com'],
+                    'ports' => '443',
+                    'descr' => 'Alibaba AliExpress uluslararası alışveriş pazarı',
+                ],
+                'ebay' => [
+                    'name' => 'eBay',
+                    'domains' => ['ebay.com', 'ebaystatic.com', 'ebayimg.com', 'ebay.de', 'ebay.co.uk'],
+                    'ports' => '443',
+                    'descr' => 'eBay açık artırma ve perakende alışveriş sitesi',
+                ],
+                'temu' => [
+                    'name' => 'Temu',
+                    'domains' => ['temu.com', 'temu.net', 'kuingsfleet.com'],
+                    'ports' => '443',
+                    'descr' => 'Temu indirimli sınır ötesi alışveriş uygulaması',
+                ],
+                'shein' => [
+                    'name' => 'Shein',
+                    'domains' => ['shein.com', 'sheinimg.com', 'sheincdn.com'],
+                    'ports' => '443',
+                    'descr' => 'Shein hızlı moda ve giyim alışveriş platformu',
+                ],
+                'shopee' => [
+                    'name' => 'Shopee',
+                    'domains' => ['shopee.com', 'shopee.com.my', 'shopeemobile.com', 'shopee.co.id', 'shopee.ph'],
+                    'ports' => '443',
+                    'descr' => 'Güneydoğu Asya Shopee e-ticaret ağı',
+                ],
+                'lazada' => [
+                    'name' => 'Lazada',
+                    'domains' => ['lazada.com', 'lazada.sg', 'laz-img-cdn.com'],
+                    'ports' => '443',
+                    'descr' => 'Lazada Asya e-ticaret mağazası',
+                ],
+                'mercado_libre' => [
+                    'name' => 'Mercado Libre',
+                    'domains' => ['mercadolibre.com', 'mercadolibre.com.ar', 'mercadolibre.com.br', 'mercadopago.com'],
+                    'ports' => '443',
+                    'descr' => 'Latin Amerika Mercado Libre pazaryeri',
+                ],
+                'xiaohongshu' => [
+                    'name' => 'Xiaohongshu (RED)',
+                    'domains' => ['xiaohongshu.com', 'xhscdn.com'],
+                    'ports' => '443',
+                    'descr' => 'RED Çin sosyal ticaret ve yaşam tarzı platformu',
+                ],
+                'coolapk' => [
+                    'name' => 'CoolAPK',
+                    'domains' => ['coolapk.com', 'coolapkmarket.com'],
+                    'ports' => '443',
+                    'descr' => 'CoolAPK teknoloji topluluğu ve uygulama mağazası',
+                ],
+            ],
+        ],
+        'social' => [
+            'title' => 'Sosyal Medya, Topluluk & Forumlar',
+            'icon' => 'fa-solid fa-share-nodes',
+            'color' => '#3b82f6',
+            'apps' => [
+                'facebook' => [
+                    'name' => 'Facebook',
+                    'domains' => ['facebook.com', 'fbcdn.net', 'fbsbx.com', 'fb.me', 'm.me'],
+                    'ports' => '443',
+                    'descr' => 'Meta Facebook sosyal platformu',
+                ],
+                'instagram' => [
+                    'name' => 'Instagram',
+                    'domains' => ['instagram.com', 'cdninstagram.com', 'ig.me'],
+                    'ports' => '443',
+                    'descr' => 'Instagram fotoğraf ve Reels paylaşım ağı',
+                ],
+                'tiktok' => [
+                    'name' => 'TikTok',
+                    'domains' => ['tiktok.com', 'tiktokcdn.com', 'byteoversea.com', 'ibytedtos.com', 'tiktokv.com'],
+                    'ports' => '443',
+                    'descr' => 'ByteDance TikTok kısa video platformu',
+                ],
+                'twitter_x' => [
+                    'name' => 'X (Eski Twitter)',
+                    'domains' => ['twitter.com', 'x.com', 'twimg.com', 't.co'],
+                    'ports' => '443',
+                    'descr' => 'X mikroblog ve sosyal akış platformu',
+                ],
+                'linkedin' => [
+                    'name' => 'LinkedIn',
+                    'domains' => ['linkedin.com', 'licdn.com'],
+                    'ports' => '443',
+                    'descr' => 'Profesyonel iş ve kariyer ağı',
+                ],
+                'reddit' => [
+                    'name' => 'Reddit',
+                    'domains' => ['reddit.com', 'redd.it', 'redditstatic.com', 'redditmedia.com'],
+                    'ports' => '443',
+                    'descr' => 'Reddit topluluk ve tartışma forumları',
+                ],
+                'pinterest' => [
+                    'name' => 'Pinterest',
+                    'domains' => ['pinterest.com', 'pinimg.com'],
+                    'ports' => '443',
+                    'descr' => 'Görsel keşif ve pano platformu',
+                ],
+                'snapchat' => [
+                    'name' => 'Snapchat',
+                    'domains' => ['snapchat.com', 'sc-cdn.net', 'snap-dev.net'],
+                    'ports' => '443',
+                    'descr' => 'Snapchat anlık fotoğraf ve hikaye ağı',
+                ],
+                'tumblr' => [
+                    'name' => 'Tumblr',
+                    'domains' => ['tumblr.com', 'tmblr.co'],
+                    'ports' => '443',
+                    'descr' => 'Tumblr mikroblog ve yaratıcı topluluk',
+                ],
+                'bluesky' => [
+                    'name' => 'Bluesky',
+                    'domains' => ['bsky.app', 'bsky.social', 'bsky.network'],
+                    'ports' => '443',
+                    'descr' => 'Bluesky merkeziyetsiz sosyal ağ',
+                ],
+                'mastodon' => [
+                    'name' => 'Mastodon',
+                    'domains' => ['mastodon.social', 'joinmastodon.org'],
+                    'ports' => '443',
+                    'descr' => 'Fediverse açık kaynaklı federe sosyal ağ',
+                ],
+                'clubhouse' => [
+                    'name' => 'Clubhouse',
+                    'domains' => ['clubhouse.com', 'joinclubhouse.com', 'clubhouseapi.com'],
+                    'ports' => '443',
+                    'descr' => 'Clubhouse sesli sohbet ve oda platformu',
+                ],
+                '4chan' => [
+                    'name' => '4chan',
+                    'domains' => ['4chan.org', '4channel.org'],
+                    'ports' => '443',
+                    'descr' => 'Anonim görsel panosu ve forumu',
+                ],
+                '9gag' => [
+                    'name' => '9GAG',
+                    'domains' => ['9gag.com', '9cache.com'],
+                    'ports' => '443',
+                    'descr' => 'Mizah ve viral içerik platformu',
+                ],
+                '500px' => [
+                    'name' => '500px',
+                    'domains' => ['500px.com', '500px.net'],
+                    'ports' => '443',
+                    'descr' => 'Fotoğrafçılık topluluğu ve portfolyo',
+                ],
+                'amino' => [
+                    'name' => 'Amino Apps',
+                    'domains' => ['aminoapps.com', 'narvii.com'],
+                    'ports' => '443',
+                    'descr' => 'Amino ilgi alanlarına göre topluluk uygulaması',
+                ],
+                'douban' => [
+                    'name' => 'Douban',
+                    'domains' => ['douban.com', 'doubanio.com'],
+                    'ports' => '443',
+                    'descr' => 'Douban Çin kitap, film ve müzik topluluğu',
+                ],
+                'vk' => [
+                    'name' => 'VKontakte (VK)',
+                    'domains' => ['vk.com', 'userapi.com', 'vk.me'],
+                    'ports' => '443',
+                    'descr' => 'Rusya ve Doğu Avrupa sosyal medya platformu',
+                ],
+                'ok_ru' => [
+                    'name' => 'OK.ru (Odnoklassniki)',
+                    'domains' => ['ok.ru', 'odnoklassniki.ru'],
+                    'ports' => '443',
+                    'descr' => 'Odnoklassniki Rus arkadaşlık ve sosyal ağı',
+                ],
+                'mail_ru' => [
+                    'name' => 'Mail.ru',
+                    'domains' => ['mail.ru', 'mrcdn.net', 'imgsmail.ru'],
+                    'ports' => '443',
+                    'descr' => 'Mail.ru portal ve sosyal servisleri',
+                ],
+                'weibo' => [
+                    'name' => 'Weibo (Sina Weibo)',
+                    'domains' => ['weibo.com', 'weibo.cn', 'sinaimg.cn', 'weibo.net'],
+                    'ports' => '443',
+                    'descr' => 'Çin mikroblog ve sosyal ağı',
+                ],
+                'zhihu' => [
+                    'name' => 'Zhihu',
+                    'domains' => ['zhihu.com', 'zhimg.com'],
+                    'ports' => '443',
+                    'descr' => 'Zhihu Çin soru-cevap ve bilgi topluluğu',
+                ],
+                'onlyfans' => [
+                    'name' => 'OnlyFans',
+                    'domains' => ['onlyfans.com', 'onlyfanscdn.com'],
+                    'ports' => '443',
+                    'descr' => 'İçerik üretici abonelik platformu',
+                ],
+                'odysee' => [
+                    'name' => 'Odysee (LBRY)',
+                    'domains' => ['odysee.com', 'lbry.tv', 'lbry.com'],
+                    'ports' => '443',
+                    'descr' => 'Merkeziyetsiz video paylaşım ağı',
+                ],
+            ],
+        ],
+        'streaming' => [
+            'title' => 'Video & Müzik (Streaming & Canlı Yayın)',
+            'icon' => 'fa-solid fa-play',
+            'color' => '#a855f7',
+            'apps' => [
+                'youtube' => [
+                    'name' => 'YouTube',
+                    'domains' => ['youtube.com', 'googlevideo.com', 'ytimg.com', 'youtu.be', 'youtube-nocookie.com'],
+                    'ports' => '443',
+                    'descr' => 'Google YouTube video akış ve müzik platformu',
+                ],
+                'netflix' => [
+                    'name' => 'Netflix',
+                    'domains' => ['netflix.com', 'nflxvideo.net', 'nflximg.net', 'nflxext.com', 'nflxso.net'],
+                    'ports' => '443',
+                    'descr' => 'Netflix dizi, film ve belgesel akış servisi',
+                ],
+                'disney_plus' => [
+                    'name' => 'Disney+',
+                    'domains' => ['disneyplus.com', 'disney-portal.my.onetrust.com', 'bamgrid.com', 'disneystreaming.com'],
+                    'ports' => '443',
+                    'descr' => 'The Walt Disney Company yayın servisi',
+                ],
+                'amazon_streaming' => [
+                    'name' => 'Amazon Prime Video',
+                    'domains' => ['primevideo.com', 'amazonvideo.com', 'aiv-cdn.net', 'atv-ps.amazon.com'],
+                    'ports' => '443',
+                    'descr' => 'Amazon Prime Video yayın ve film platformu',
+                ],
+                'apple_streaming' => [
+                    'name' => 'Apple TV+ / Streaming',
+                    'domains' => ['tv.apple.com', 'apple.com/apple-tv-plus', 'video-edge.itunes.apple.com'],
+                    'ports' => '443',
+                    'descr' => 'Apple TV+ ve iTunes video akış sunucuları',
+                ],
+                'hbo_max' => [
+                    'name' => 'Max (HBO Max)',
+                    'domains' => ['max.com', 'hbomax.com', 'hbo.com', 'discomax.com'],
+                    'ports' => '443',
+                    'descr' => 'Warner Bros Discovery Max akış platformu',
+                ],
+                'hulu' => [
+                    'name' => 'Hulu',
+                    'domains' => ['hulu.com', 'hulustream.com', 'huluim.com'],
+                    'ports' => '443',
+                    'descr' => 'Disney Hulu isteğe bağlı video akışı',
+                ],
+                'paramount_plus' => [
+                    'name' => 'Paramount+',
+                    'domains' => ['paramountplus.com', 'cbsaavs.com'],
+                    'ports' => '443',
+                    'descr' => 'Paramount Global dizi ve film servisi',
+                ],
+                'peacock_tv' => [
+                    'name' => 'Peacock TV',
+                    'domains' => ['peacocktv.com'],
+                    'ports' => '443',
+                    'descr' => 'NBCUniversal Peacock yayın ağı',
+                ],
+                'discovery_plus' => [
+                    'name' => 'Discovery+',
+                    'domains' => ['discoveryplus.com', 'discovery.com'],
+                    'ports' => '443',
+                    'descr' => 'Discovery+ belgesel ve eğlence platformu',
+                ],
+                'lionsgate_plus' => [
+                    'name' => 'Lionsgate+ (Starz)',
+                    'domains' => ['lionsgateplus.com', 'starz.com'],
+                    'ports' => '443',
+                    'descr' => 'Lionsgate+ ve Starz yayın kanalı',
+                ],
+                'crunchyroll' => [
+                    'name' => 'Crunchyroll',
+                    'domains' => ['crunchyroll.com', 'vrv.co'],
+                    'ports' => '443',
+                    'descr' => 'Sony Anime akış ve manga platformu',
+                ],
+                'dailymotion' => [
+                    'name' => 'Dailymotion',
+                    'domains' => ['dailymotion.com', 'dmcdn.net'],
+                    'ports' => '443',
+                    'descr' => 'Fransa merkezli video paylaşım portalı',
+                ],
+                'vimeo' => [
+                    'name' => 'Vimeo',
+                    'domains' => ['vimeo.com', 'vimeocdn.com'],
+                    'ports' => '443',
+                    'descr' => 'Yüksek kaliteli profesyonel video platformu',
+                ],
+                'twitch' => [
+                    'name' => 'Twitch',
+                    'domains' => ['twitch.tv', 'ttvnw.net', 'jtvnw.net'],
+                    'ports' => '443',
+                    'descr' => 'Amazon Twitch canlı oyun ve yayın platformu',
+                ],
+                'spotify' => [
+                    'name' => 'Spotify',
+                    'domains' => ['spotify.com', 'scdn.co', 'spclient.wg.spotify.com', 'spotifycdn.com'],
+                    'ports' => '443,4070',
+                    'descr' => 'Spotify dijital müzik ve podcast akış servisi',
+                ],
+                'spotify_video' => [
+                    'name' => 'Spotify Video Streaming',
+                    'domains' => ['video-ak.spotifycdn.com', 'heads4-ak.spotify.com.edgesuite.net'],
+                    'ports' => '443',
+                    'descr' => 'Spotify video podcast ve Canvas akış sunucuları',
+                ],
+                'deezer' => [
+                    'name' => 'Deezer',
+                    'domains' => ['deezer.com', 'dzcdn.net'],
+                    'ports' => '443',
+                    'descr' => 'Fransız Deezer müzik ve ses platformu',
+                ],
+                'tidal' => [
+                    'name' => 'Tidal',
+                    'domains' => ['tidal.com', 'wimptheory.com'],
+                    'ports' => '443',
+                    'descr' => 'Tidal Hi-Fi kayıpsız ses ve müzik servisi',
+                ],
+                'soundcloud' => [
+                    'name' => 'SoundCloud',
+                    'domains' => ['soundcloud.com', 'sndcdn.com'],
+                    'ports' => '443',
+                    'descr' => 'SoundCloud müzik paylaşım ve sanatçı topluluğu',
+                ],
+                'iheartradio' => [
+                    'name' => 'iHeartRadio',
+                    'domains' => ['iheart.com', 'ihr.securenetsystems.net', 'iheartmedia.com'],
+                    'ports' => '443',
+                    'descr' => 'iHeartRadio canlı radyo ve podcast ağı',
+                ],
+                'nebula' => [
+                    'name' => 'Nebula Streaming',
+                    'domains' => ['nebula.tv', 'watchnebula.com'],
+                    'ports' => '443',
+                    'descr' => 'Bağımsız yaratıcı odaklı video platformu',
+                ],
+                'plex' => [
+                    'name' => 'Plex',
+                    'domains' => ['plex.tv', 'plex.direct'],
+                    'ports' => '32400,443',
+                    'descr' => 'Plex kişisel medya sunucusu ve ücretsiz TV',
+                ],
+                'pluto_tv' => [
+                    'name' => 'Pluto TV',
+                    'domains' => ['pluto.tv'],
+                    'ports' => '443',
+                    'descr' => 'Paramount Pluto TV ücretsiz canlı yayın kanalları',
+                ],
+                'samsung_tv_plus' => [
+                    'name' => 'Samsung TV Plus',
+                    'domains' => ['samsungtvplus.com', 'samsungcloudcdn.com'],
+                    'ports' => '443',
+                    'descr' => 'Samsung akıllı TV ve mobil ücretsiz kanal ağı',
+                ],
+                'looke' => [
+                    'name' => 'Looke',
+                    'domains' => ['looke.com.br'],
+                    'ports' => '443',
+                    'descr' => 'Looke Brezilya film ve dizi yayın servisi',
+                ],
+                'directv_go' => [
+                    'name' => 'DirecTV Go (DGO)',
+                    'domains' => ['directvgo.com'],
+                    'ports' => '443',
+                    'descr' => 'DirecTV Go canlı televizyon ve yayın ağı',
+                ],
+                'globoplay' => [
+                    'name' => 'Globoplay',
+                    'domains' => ['globoplay.globo.com', 'globo.com'],
+                    'ports' => '443',
+                    'descr' => 'Globo Brezilya yayın platformu',
+                ],
+                'canais_globo' => [
+                    'name' => 'Canais Globo',
+                    'domains' => ['canaisglobo.globo.com'],
+                    'ports' => '443',
+                    'descr' => 'Canais Globo canlı yayın kanalları',
+                ],
+                'claro' => [
+                    'name' => 'Claro TV+ / Video',
+                    'domains' => ['clarotvmais.com.br', 'clarovideo.com'],
+                    'ports' => '443',
+                    'descr' => 'Claro América Móvil yayın servisi',
+                ],
+                'vivo_play' => [
+                    'name' => 'Vivo Play',
+                    'domains' => ['vivoplay.com.br'],
+                    'ports' => '443',
+                    'descr' => 'Telefónica Vivo Play video platformu',
+                ],
+                'voot' => [
+                    'name' => 'Voot (JioCinema)',
+                    'domains' => ['voot.com', 'jiocinema.com'],
+                    'ports' => '443',
+                    'descr' => 'Hindistan JioCinema / Voot dizi ve film servisi',
+                ],
+                'espn' => [
+                    'name' => 'ESPN',
+                    'domains' => ['espn.com', 'espncdn.com', 'espn.go.com'],
+                    'ports' => '443',
+                    'descr' => 'ESPN canlı spor yayınları ve video ağı',
+                ],
+                'fifa' => [
+                    'name' => 'FIFA+',
+                    'domains' => ['fifa.com', 'plus.fifa.com'],
+                    'ports' => '443',
+                    'descr' => 'FIFA+ resmi futbol maçları ve belgesel yayını',
+                ],
+                'bilibili' => [
+                    'name' => 'Bilibili',
+                    'domains' => ['bilibili.com', 'bilivideo.com', 'hdslb.com'],
+                    'ports' => '443',
+                    'descr' => 'Çin Bilibili video ve anime topluluğu',
+                ],
+                'iqiyi' => [
+                    'name' => 'iQIYI',
+                    'domains' => ['iqiyi.com', 'iq.com', '71.am'],
+                    'ports' => '443',
+                    'descr' => 'Baidu iQIYI Asya drama ve dizi platformu',
+                ],
+                'qq' => [
+                    'name' => 'Tencent QQ Video',
+                    'domains' => ['qq.com', 'v.qq.com', 'tencent.com'],
+                    'ports' => '443',
+                    'descr' => 'Tencent Video ve QQ medya servisi',
+                ],
+                'yy' => [
+                    'name' => 'YY Live',
+                    'domains' => ['yy.com', 'yystatic.com'],
+                    'ports' => '443',
+                    'descr' => 'YY Çin canlı yayın ve interaktif video ağı',
+                ],
+                'bigo_live' => [
+                    'name' => 'Bigo Live',
+                    'domains' => ['bigo.tv', 'bigo.sg'],
+                    'ports' => '443',
+                    'descr' => 'Bigo Live küresel canlı yayın ve sohbet platformu',
+                ],
+                'rakuten_viki' => [
+                    'name' => 'Rakuten Viki',
+                    'domains' => ['viki.com', 'viki.io'],
+                    'ports' => '443',
+                    'descr' => 'Rakuten Viki Asya dizileri ve altyazılı içerik',
+                ],
+            ],
+        ],
+        'system_stores' => [
+            'title' => 'Uygulama Mağazaları & Sistem Servisleri',
+            'icon' => 'fa-solid fa-laptop-code',
+            'color' => '#14b8a6',
+            'apps' => [
+                'play_store' => [
+                    'name' => 'Google Play Store',
+                    'domains' => ['play.google.com', 'android.clients.google.com', 'market.android.com'],
+                    'ports' => '443',
+                    'descr' => 'Android Google Play uygulama indirme ve güncelleme',
+                ],
+                'nvidia' => [
+                    'name' => 'NVIDIA (GeForce NOW)',
+                    'domains' => ['nvidia.com', 'nvidiagrid.net', 'geforcenow.com', 'nvidia.custhelp.com'],
+                    'ports' => '443,49000:49010',
+                    'descr' => 'NVIDIA GeForce sürücü indirmeleri ve bulut oyun ağı',
+                ],
+            ],
+        ],
+        'remote_access' => [
+            'title' => 'Uzak Masaüstü & Shadow IT (Remote Control)',
+            'icon' => 'fa-solid fa-desktop',
+            'color' => '#64748b',
+            'apps' => [
+                'anydesk' => [
+                    'name' => 'AnyDesk',
+                    'domains' => ['anydesk.com', 'net.anydesk.com', 'boot.anydesk.com'],
+                    'ports' => '7070,6568,443',
+                    'descr' => 'AnyDesk uzaktan kontrol ve dosya aktarımı',
+                ],
+                'teamviewer' => [
+                    'name' => 'TeamViewer',
+                    'domains' => ['teamviewer.com', 'tmvm.net', 'router.teamviewer.com'],
+                    'ports' => '5938,443',
+                    'descr' => 'TeamViewer uzak bağlantı ve toplantı yazılımı',
+                ],
+                'rustdesk' => [
+                    'name' => 'RustDesk',
+                    'domains' => ['rustdesk.com'],
+                    'ports' => '21115:21119',
+                    'descr' => 'Açık kaynaklı P2P uzak masaüstü aracı',
+                ],
+                'chrome_rdp' => [
+                    'name' => 'Chrome Remote Desktop',
+                    'domains' => ['remotedesktop.google.com', 'chromoting-host.google.com'],
+                    'ports' => '443',
+                    'descr' => 'Google Chrome tarayıcı tabanlı uzak masaüstü',
+                ],
+            ],
         ],
         'crypto' => [
             'title' => 'Kripto Para Borsaları & Madencilik',
             'icon' => 'fa-solid fa-coins',
+            'color' => '#eab308',
             'apps' => [
                 'binance' => [
                     'name' => 'Binance',
-                    'domains' => ['binance.com', 'binance.me', 'binance.vision'],
-                    'ports' => '',
-                    'descr' => 'Kripto para alım satım platformu'
+                    'domains' => ['binance.com', 'binance.me', 'binance.info', 'binance.cloud', 'bnbstatic.com'],
+                    'ports' => '443',
+                    'descr' => 'Küresel kripto varlık alım satım platformu',
                 ],
                 'btcturk' => [
-                    'name' => 'BtcTurk & Paribu',
-                    'domains' => ['btcturk.com', 'paribu.com'],
-                    'ports' => '',
-                    'descr' => 'Yerel kripto para borsaları'
-                ]
-            ]
-        ]
+                    'name' => 'BtcTurk',
+                    'domains' => ['btcturk.com', 'btcturk.pro'],
+                    'ports' => '443',
+                    'descr' => 'Türkiye yerel kripto borsası',
+                ],
+                'paribu' => [
+                    'name' => 'Paribu',
+                    'domains' => ['paribu.com'],
+                    'ports' => '443',
+                    'descr' => 'Paribu kripto para işlem platformu',
+                ],
+                'coinbase' => [
+                    'name' => 'Coinbase',
+                    'domains' => ['coinbase.com'],
+                    'ports' => '443',
+                    'descr' => 'Coinbase küresel kripto borsası',
+                ],
+                'kraken' => [
+                    'name' => 'Kraken',
+                    'domains' => ['kraken.com'],
+                    'ports' => '443',
+                    'descr' => 'Kraken dijital varlık borsası',
+                ],
+                'kucoin' => [
+                    'name' => 'KuCoin',
+                    'domains' => ['kucoin.com'],
+                    'ports' => '443',
+                    'descr' => 'KuCoin kripto ticaret platformu',
+                ],
+            ],
+        ],
     ];
 }
 
@@ -611,7 +1386,8 @@ function poseaapp_sync_system($conf = null) {
             }
 
             // Determine if rule affects VPN ports
-            $is_vpn_rule = ($app_tgt === 'cat_vpn' || strpos($app_tgt, 'vpn') !== false || in_array($app_tgt, ['openvpn', 'wireguard', 'tor', 'warp', 'nordvpn', 'expressvpn']));
+            $vpn_apps = ['cat_vpn', 'cat_privacy', 'openvpn', 'wireguard', 'tor', 'warp', 'nordvpn', 'expressvpn', 'protonvpn', 'surfshark', 'psiphon', 'tailscale', 'claudeflare', 'proton', 'icloud_private_relay', 'privacy'];
+            $is_vpn_rule = in_array($app_tgt, $vpn_apps) || strpos($app_tgt, 'vpn') !== false;
 
             if ($is_vpn_rule) {
                 foreach ($targets as $src_def) {

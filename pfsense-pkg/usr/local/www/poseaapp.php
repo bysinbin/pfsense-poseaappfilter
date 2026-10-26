@@ -281,41 +281,18 @@ if ($savemsg) {
                                     <div class="form-group" style="margin-bottom:12px;">
                                         <label class="control-label" style="color:#cbd5e1; font-weight:600;">Denetlenecek Uygulama / Kategori:</label>
                                         <select name="app_target" id="rule_app_target" class="form-control" style="background:#0f172a; color:#fff; border:1px solid #475569;">
-                                            <optgroup label="── GENEL KATEGORİLER ──">
-                                                <option value="cat_vpn" selected>🛡️ Tüm VPN, Proxy &amp; Tüneller (NordVPN, Tor, OpenVPN, WireGuard vb.)</option>
-                                                <option value="cat_remote">🖥️ Uzak Masaüstü &amp; Shadow IT (AnyDesk, TeamViewer, RustDesk)</option>
-                                                <option value="cat_social">🌐 Tüm Sosyal Medya (Instagram, Facebook, X)</option>
-                                                <option value="cat_streaming">🎬 Tüm Video &amp; Müzik (YouTube, Netflix, TikTok, Twitch)</option>
-                                                <option value="cat_gaming">🎮 Tüm Çevrimiçi Oyunlar (Roblox, Steam, Discord)</option>
-                                                <option value="cat_p2p">⚡ P2P &amp; Torrent (BitTorrent)</option>
-                                                <option value="cat_crypto">🪙 Kripto Para Borsaları (Binance, BtcTurk)</option>
+                                            <optgroup label="── GENEL KATEGORİLER (TÜM GRUP) ──">
+                                                <?php foreach ($catalog as $cat_key => $cat_info): ?>
+                                                    <option value="cat_<?=$cat_key?>"><?=htmlspecialchars($cat_info['title'])?> (Tümü)</option>
+                                                <?php endforeach; ?>
                                             </optgroup>
-                                            <optgroup label="── TEKİL UYGULAMALAR ──">
-                                                <option value="nordvpn">NordVPN</option>
-                                                <option value="expressvpn">ExpressVPN</option>
-                                                <option value="protonvpn">ProtonVPN</option>
-                                                <option value="surfshark">Surfshark</option>
-                                                <option value="openvpn">OpenVPN</option>
-                                                <option value="wireguard">WireGuard</option>
-                                                <option value="tor">Tor Project &amp; Bridges</option>
-                                                <option value="warp">Cloudflare 1.1.1.1 (WARP)</option>
-                                                <option value="psiphon">Psiphon &amp; UltraSurf</option>
-                                                <option value="tailscale">Tailscale</option>
-                                                <option value="anydesk">AnyDesk</option>
-                                                <option value="teamviewer">TeamViewer</option>
-                                                <option value="rustdesk">RustDesk</option>
-                                                <option value="youtube">YouTube</option>
-                                                <option value="netflix">Netflix</option>
-                                                <option value="tiktok">TikTok</option>
-                                                <option value="roblox">Roblox</option>
-                                                <option value="steam">Steam</option>
-                                                <option value="discord">Discord</option>
-                                                <option value="instagram">Instagram</option>
-                                                <option value="facebook">Facebook</option>
-                                                <option value="twitter_x">X (Twitter)</option>
-                                                <option value="whatsapp">WhatsApp</option>
-                                                <option value="telegram">Telegram</option>
-                                            </optgroup>
+                                            <?php foreach ($catalog as $cat_key => $cat_info): ?>
+                                                <optgroup label="── <?=htmlspecialchars(mb_strtoupper($cat_info['title'], 'UTF-8'))?> ──">
+                                                    <?php foreach ($cat_info['apps'] as $aid => $ainfo): ?>
+                                                        <option value="<?=$aid?>"><?=htmlspecialchars($ainfo['name'])?></option>
+                                                    <?php endforeach; ?>
+                                                </optgroup>
+                                            <?php endforeach; ?>
                                         </select>
                                     </div>
                                 </div>
@@ -377,16 +354,31 @@ if ($savemsg) {
                                         'ip' => '<span class="label label-default"><i class="fa-solid fa-desktop"></i> IP Adresi</span>',
                                         'mac' => '<span class="label label-info"><i class="fa-solid fa-barcode"></i> MAC Adresi</span>'
                                     ];
-                                    $app_labels = [
-                                        'cat_vpn' => '<span class="label label-danger"><i class="fa-solid fa-shield-halved"></i> Tüm VPN &amp; Tüneller</span>',
-                                        'cat_remote' => '<span class="label label-warning"><i class="fa-solid fa-display"></i> Tüm Uzak Masaüstü</span>',
-                                        'cat_social' => '<span class="label label-info"><i class="fa-solid fa-share-nodes"></i> Tüm Sosyal Medya</span>',
-                                        'cat_streaming' => '<span class="label label-primary"><i class="fa-solid fa-play"></i> Tüm Video &amp; Müzik</span>',
-                                        'cat_gaming' => '<span class="label label-purple" style="background:#8b5cf6;"><i class="fa-solid fa-gamepad"></i> Tüm Oyunlar</span>',
-                                        'cat_p2p' => '<span class="label label-danger"><i class="fa-solid fa-download"></i> Tüm P2P / Torrent</span>',
-                                        'cat_crypto' => '<span class="label label-warning"><i class="fa-solid fa-coins"></i> Kripto Borsaları</span>'
-                                    ];
-                                    $app_display = $app_labels[$cr['app_target']] ?? '<span class="label label-default">' . htmlspecialchars(ucfirst($cr['app_target'])) . '</span>';
+                                    $tgt = $cr['app_target'] ?? '';
+                                    $app_display = '';
+                                    if (strpos($tgt, 'cat_') === 0) {
+                                        $ckey = substr($tgt, 4);
+                                        if (isset($catalog[$ckey])) {
+                                            $app_display = '<span class="label label-danger" style="font-size:11px;"><i class="' . htmlspecialchars($catalog[$ckey]['icon']) . '"></i> Tüm ' . htmlspecialchars($catalog[$ckey]['title']) . '</span>';
+                                        } else {
+                                            $app_display = '<span class="label label-danger" style="font-size:11px;"><i class="fa-solid fa-layer-group"></i> ' . htmlspecialchars($tgt) . '</span>';
+                                        }
+                                    } else {
+                                        $found_app = null;
+                                        $found_icon = 'fa-solid fa-cube';
+                                        foreach ($catalog as $ck => $ci) {
+                                            if (isset($ci['apps'][$tgt])) {
+                                                $found_app = $ci['apps'][$tgt]['name'];
+                                                $found_icon = $ci['icon'];
+                                                break;
+                                            }
+                                        }
+                                        if ($found_app) {
+                                            $app_display = '<span class="label label-default" style="background:#334155; font-size:11px;"><i class="' . htmlspecialchars($found_icon) . '"></i> ' . htmlspecialchars($found_app) . '</span>';
+                                        } else {
+                                            $app_display = '<span class="label label-default" style="font-size:11px;">' . htmlspecialchars(ucfirst($tgt)) . '</span>';
+                                        }
+                                    }
                                 ?>
                                 <tr>
                                     <td><strong style="color:#f8fafc; font-size:13px;"><?=htmlspecialchars($cr['target_val'])?></strong></td>
@@ -435,7 +427,11 @@ if ($savemsg) {
                     <div class="panel panel-info" style="border-radius:8px; box-shadow:0 1px 3px rgba(0,0,0,0.05);">
                         <div class="panel-heading" style="background:#1e293b; color:#fff; font-weight:bold; display:flex; justify-content:space-between; align-items:center;">
                             <span><i class="<?=$cat_info['icon']?> text-info"></i> <?=htmlspecialchars($cat_info['title'])?></span>
-                            <span class="badge" style="background:#334155; font-size:11px;"><?=count($cat_info['apps'])?> Uygulama</span>
+                            <div style="display:flex; align-items:center; gap:6px;">
+                                <span class="badge" style="background:#334155; font-size:11px;"><?=count($cat_info['apps'])?> Uygulama</span>
+                                <button type="button" class="btn btn-xs btn-default" style="padding:1px 6px; font-size:10px; background:#0f172a; color:#22c55e; border:1px solid #334155;" onclick="setCategoryApps('<?=$cat_key?>', 'allow')" title="Bu kategorideki tüm uygulamalara izin ver"><i class="fa-solid fa-check"></i> İzin Ver</button>
+                                <button type="button" class="btn btn-xs btn-default" style="padding:1px 6px; font-size:10px; background:#0f172a; color:#ef4444; border:1px solid #334155;" onclick="setCategoryApps('<?=$cat_key?>', 'block')" title="Bu kategorideki tüm uygulamaları engelle"><i class="fa-solid fa-ban"></i> Engelle</button>
+                            </div>
                         </div>
                         <div class="panel-body" style="padding:10px 15px;">
                             <table class="table table-hover table-condensed" style="margin-bottom:0;">
@@ -584,10 +580,19 @@ function setAllApps(action) {
     });
 }
 
+function setCategoryApps(catKey, action) {
+    var selectors = document.querySelectorAll('.app-selector[data-category="' + catKey + '"]');
+    selectors.forEach(function(sel) {
+        sel.value = action;
+        styleSelector(sel);
+    });
+}
+
 function blockAllVpns() {
     var selectors = document.querySelectorAll('.app-selector');
     selectors.forEach(function(sel) {
-        if (sel.getAttribute('data-category') === 'vpn_tunnels' || sel.getAttribute('data-category') === 'remote_access') {
+        var cat = sel.getAttribute('data-category');
+        if (cat === 'vpn_tunnels' || cat === 'privacy_vpns' || cat === 'remote_access' || cat === 'gambling' || cat === 'dating') {
             sel.value = 'block';
             styleSelector(sel);
         }
@@ -595,14 +600,18 @@ function blockAllVpns() {
 }
 
 function setRecommended() {
-    var recBlock = [
+    var recBlockCats = ['vpn_tunnels', 'privacy_vpns', 'p2p_sharing', 'gambling', 'dating', 'adult'];
+    var recBlockApps = [
         'nordvpn', 'expressvpn', 'protonvpn', 'surfshark', 'openvpn', 'wireguard', 'tor', 'warp', 'psiphon', 'tailscale',
-        'bittorrent', 'tiktok', 'roblox', 'steam', 'epicgames', 'riotgames', 'binance'
+        'claudeflare', 'proton', 'icloud_private_relay', 'privacy',
+        'bittorrent', 'tiktok', 'roblox', 'steam', 'epic_games', 'riot_games', 'league_of_legends', 'valorant', 'minecraft',
+        'binance', 'betano', 'betfair', 'betway', 'blaze', 'tinder', 'plenty_of_fish', 'wizz', '4chan', 'onlyfans'
     ];
     var selectors = document.querySelectorAll('.app-selector');
     selectors.forEach(function(sel) {
         var name = sel.name.replace('apps[', '').replace(']', '');
-        if (recBlock.indexOf(name) !== -1) {
+        var cat = sel.getAttribute('data-category');
+        if (recBlockApps.indexOf(name) !== -1 || recBlockCats.indexOf(cat) !== -1) {
             sel.value = 'block';
         } else {
             sel.value = 'allow';
@@ -744,19 +753,6 @@ function editClientRule(r) {
         }
     }
     document.getElementById('rule_target_val').value = r.target_val;
-
-    $('#newRulePanel').collapse('show');
-}
-    if (wrap) {
-        var input = wrap.querySelector('input, select');
-        if (input) {
-            input.value = r.target_val;
-            if (input.tagName === 'SELECT' && input.value !== r.target_val) {
-                toggleManualTargetInput();
-                document.getElementById('sel_manual').value = r.target_val;
-            }
-        }
-    }
 
     $('#newRulePanel').collapse('show');
 }
